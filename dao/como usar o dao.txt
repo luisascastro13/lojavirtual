@@ -1,0 +1,28 @@
+aqui tu vai pegar os objetos (ou seja, os models construídos) e inserir no banco.
+
+<?php
+
+require_once '../model/BiririBororo.php';
+require_once '../model/Connection.php';
+
+class BiririBororoDAO{
+	public static function insertBiririBororo($biriribororo){
+		$conn = new Connection();
+		$conn->executeUpdate("INSERT INTO biriribororo (name) values ($biriribororo->name)");
+	}
+
+	public static function selectBiririBororo(){
+		$conn = new Connection();
+
+		########### DETALHE MUITO IMPORTANTE!!!! ###########
+		# pra garantir, coloca sempre o sql todo em minusculo #
+		# por mais que fique feio, tem menos chance de dar errado #
+		# porque o banco do host pode se fresquear com nome de tabela em maiusculo #
+
+		$result = $conn->executeSelect("SELECT * FROM biriribororo");
+		return $result;
+	}
+
+}
+
+?>

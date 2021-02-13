@@ -1,0 +1,22 @@
+<?php
+
+require_once '../model/BiririBororo.class.php';
+require_once '../dao/BiririBororoDAO.dao.php';
+
+switch($_GET['a']){
+	case 'insert':
+		$biriri = new BiririBororo("seilaoq");
+		$biriri->setName($_POST['name']);
+		
+		BiririBororoDAO::insertBiririBororo($biriri);
+		break;
+	case 'update':
+		.....
+		.....
+		.....
+		break;
+
+}
+
+header('Location: ../view/paginaDaViewQueEuQuero.php');
+?>
