@@ -1,6 +1,6 @@
 <?php
 	class Autor {
-		protected $id, $nome;
+		protected $id, $nome, $descr;
 
 		public function __construct($id, $nome){
 			$this->id = $id;
@@ -19,6 +19,14 @@
 		}
 		public function setNome($nome){
 			$this->nome = $nome;
+		}
+
+		public function getDescr(){
+			return $this->descr;
+		}
+
+		public function setDescr($descr){
+			$this->descr = $descr;
 		}
 	}
 ?>
