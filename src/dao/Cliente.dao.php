@@ -11,7 +11,12 @@ class ClienteDAO{
 		$id = $conn->atualizarTabela($sql, [$cliente->getEmail(), $cliente->getSenha()]);
 		return $id;
 	}
-
+	public static function verTodos(){
+		$conn = new Conexao();
+		$sql = 'select * from cliente';
+		$res = $conn->consultarTabela($sql, null);
+		return $res;
+	}
 }
 
 ?>

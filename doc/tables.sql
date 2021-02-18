@@ -33,6 +33,9 @@ CREATE TABLE IF NOT EXISTS pedidolivro(id_pedido integer,
 	constraint fkplivro2 FOREIGN KEY (id_livro)  REFERENCES livro(id));
 
 ALTER TABLE cliente ADD CONSTRAINT fkcliente FOREIGN KEY (id_carrinho) REFERENCES pedido(id);
+ALTER TABLE `cliente` CHANGE `email` `email` VARCHAR(63) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL;
+
+ALTER TABLE `cliente` ADD UNIQUE(`email`);
 
 -----------------------------------------
 --               INSERTS               --

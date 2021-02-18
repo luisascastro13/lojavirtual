@@ -4,8 +4,7 @@
 		<p>O que vai ter nessa página:</p>
 		<li>Navbar
 			<ul>
-				<li><a href="view/login.php">Login</a></li>
-				<li>Cadastrar usuário</li>
+				<li><a href="view/login.php">Login e Cadastro de Cliente</a></li>
 				<li>Produtos da vitrine</li>		
 				<li>Carrinho de compras</li>
 			</ul>
