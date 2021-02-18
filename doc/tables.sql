@@ -33,6 +33,7 @@ CREATE TABLE IF NOT EXISTS pedidolivro(id_pedido integer,
 
 ALTER TABLE cliente ADD CONSTRAINT fkcliente FOREIGN KEY (id_carrinho) REFERENCES pedido(id);
 
+ALTER TABLE `cliente` ADD `senha` TEXT NOT NULL AFTER `id_carrinho`;
 
 -----------------------------------------
 --               INSERTS               --
