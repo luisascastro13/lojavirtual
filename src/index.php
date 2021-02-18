@@ -1,5 +1,6 @@
 <html>
-	<head>INDEX</head>
+
+<header>	
 	<ul>
 		<p>O que vai ter nessa página:</p>
 		<li>Navbar
@@ -11,6 +12,15 @@
 		</li>
 		
 		<li>Busca de produtos</li>
-		<li>Contate-nos</li>
+		<li><a href="view/faleconosco.php">Fale conosco</a></li>
 	<ul>
+</header>
+
+<div>
+	<h1>VITRINE</h1>
+	
+</div>
+
+
+
 </html>
