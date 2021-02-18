@@ -18,8 +18,8 @@ CREATE TABLE IF NOT EXISTS livrocategoria(id_livro integer, id_categoria integer
 	constraint fklcat1 FOREIGN KEY (id_livro) REFERENCES livro(id),
 	constraint fklcat2 FOREIGN KEY (id_categoria) REFERENCES categoria(id));
 
-CREATE TABLE IF NOT EXISTS cliente(id integer primary key, nome varchar(63),
-	endereco varchar(63), email varchar(63), id_carrinho integer);
+CREATE TABLE IF NOT EXISTS cliente(id integer primary key AUTO_INCREMENT, nome varchar(63),
+	endereco varchar(63), email varchar(63), id_carrinho integer, senha varchar(63));
 
 CREATE TABLE IF NOT EXISTS pedido(id integer primary key, id_cliente integer,
 	estado integer,
@@ -32,8 +32,6 @@ CREATE TABLE IF NOT EXISTS pedidolivro(id_pedido integer,
 	constraint fkplivro2 FOREIGN KEY (id_livro)  REFERENCES livro(id));
 
 ALTER TABLE cliente ADD CONSTRAINT fkcliente FOREIGN KEY (id_carrinho) REFERENCES pedido(id);
-
-ALTER TABLE `cliente` ADD `senha` TEXT NOT NULL AFTER `id_carrinho`;
 
 -----------------------------------------
 --               INSERTS               --
@@ -129,14 +127,14 @@ INSERT INTO livrocategoria VALUES (43,5), (43,7), (44,5), (44,7);
 --             DROP TABLES             --
 -----------------------------------------
 
--- ALTER TABLE cliente drop foreign key if exists `fkcliente`;
--- DROP TABLE IF EXISTS `pedidolivro`;
--- DROP TABLE IF EXISTS `livrocategoria`;
--- DROP TABLE IF EXISTS `livro`;
--- DROP TABLE IF EXISTS `b`;
--- DROP TABLE IF EXISTS `a`;
--- DROP TABLE IF EXISTS `pedido`;
--- DROP TABLE IF EXISTS `cliente`;
--- DROP TABLE IF EXISTS `categoria`;
--- DROP TABLE IF EXISTS `autor`;
--- DROP TABLE IF EXISTS `TestTable`;
+ ALTER TABLE cliente drop foreign key if exists `fkcliente`;
+ DROP TABLE IF EXISTS `pedidolivro`;
+ DROP TABLE IF EXISTS `livrocategoria`;
+ DROP TABLE IF EXISTS `livro`;
+ DROP TABLE IF EXISTS `b`;
+ DROP TABLE IF EXISTS `a`;
+ DROP TABLE IF EXISTS `pedido`;
+ DROP TABLE IF EXISTS `cliente`;
+ DROP TABLE IF EXISTS `categoria`;
+ DROP TABLE IF EXISTS `autor`;
+ DROP TABLE IF EXISTS `TestTable`;

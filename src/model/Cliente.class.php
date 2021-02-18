@@ -2,8 +2,7 @@
 	class Cliente {
 		protected $id, $nome, $endereco, $email, $senha;
 
-		public function __construct($id, $email){
-			$this->id = $id;
+		public function __construct($email){
 			$this->email = $email;
 		}
 
