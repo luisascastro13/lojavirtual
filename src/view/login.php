@@ -25,7 +25,6 @@ if(isset($_GET['msg'])){
 <html>
 	
 	<!-- CADASTRAR LOGIN -->
-
 	<div>
 		<h1>Cadastrar Login</h1>
 		<form onsubmit="return validarSenhas(this)" action="../controller/Cliente.controller.php?a=inserirNovo" method="POST">
