@@ -22,43 +22,91 @@
 
 <html>
 	<head>
-		<title>Login</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+
+		<title>Livraria Virtual</title>
+		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+		<style>
+			.bd-placeholder-img {
+				font-size: 1.125rem;
+				text-anchor: middle;
+				-webkit-user-select: none;
+				-moz-user-select: none;
+				user-select: none;
+			}
+
+			@media (min-width: 768px) {
+				.bd-placeholder-img-lg {
+					font-size: 3.5rem;
+				}
+			}
+			body {
+				padding-top: 3.5rem;
+			}
+
+			form .row {
+				margin-bottom: 1rem;
+			}
+		</style>
 	</head>
 	<body>
-		<!-- CADASTRAR LOGIN -->
-		<div>
-			<h1>Cadastrar Login</h1>
-			<form onsubmit="return validarSenhas(this)" action="../controller/Cliente.controller.php?a=inserirNovo" method="POST">
-
-				<label for="email">E-mail
-				<input type="email" name="email">
-
-				<label for="senha">Senha
-				<input type="password" name="senha">
-
-				<label for="resenha">Repita a senha
-				<input type="password" name="resenha">
-
-				<input type="submit" value="Cadastrar Login">
-			</form>
+		<?php include('template/header.php'); ?>
+		<div class="container" style="margin-top: 2rem;">
+			<div class="text-center">
+				<h2>Entrar na Conta</h2>
+				<p class="lead">Acesse sua conta para acompanhar pedidos,<br> alterar seus dados e realizar encomendas!</p>
+			</div>
 		</div>
+		<!-- 75 rem é 2x35 (dos cards) + 5 de padding -->
+		<div class="row" style="max-width: 75rem; margin: 0 auto">
+			<div class="col-sm-6">
+				<div class="card" style="max-width:35rem; margin: 0 auto">
+					<div class="card-body">
+						<h5 class="card-title">Cadastre-se!</h5>
+						<form onsubmit="return validarSenhas(this)" action="../controller/Cliente.controller.php?a=inserirNovo" method="POST">
+							<div class="container">
+								<label for="email" class="row">E-mail
+									<input type="email" name="email" class="form-control">
+								</label>
 
+								<label for="senha" class="row">Senha
+									<input type="password" name="senha" class="form-control">
+								</label>
 
-		<!-- EFETUAR LOGIN -->
-		<div>
-			<h1>Efetuar Login</h1>
-			<form onsubmit="return validarCadastri(this)" action="../controller/Cliente.controller.php?a=efetuarLogin" method="POST">
+								<label for="resenha" class="row">Repita a senha
+									<input type="password" name="resenha" class="form-control">
+								</label>
 
-				<label for="email">E-mail
-				<input type="email" name="email">
+							 	<input type="submit" class="row btn btn-primary" value="Cadastrar">
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-6" style="max-width:35rem; margin: 0 auto">
+				<div class="card">
+					<div class="card-body">
+						<h5 class="card-title">Ou Faça Login</h5>
+						<form onsubmit="return validarCadastri(this)" action="../controller/Cliente.controller.php?a=efetuarLogin" method="POST">
+							<div class="container">
+								<label for="email" class="row">E-mail
+									<input type="email" name="email" class="form-control">
+								</label>
 
-				<label for="senha">Senha
-				<input type="password" name="senha">
+								<label for="senha" class="row">Senha
+									<input type="password" name="senha" class="form-control">
+								</label>
 
-				<input type="submit" value="Efetuar Login">
-			</form>
+								<input type="submit" value="Efetuar Login"  class="row btn btn-primary">
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
 		</div>
 	</body>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
 </html>
 
 
