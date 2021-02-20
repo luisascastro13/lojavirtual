@@ -1,4 +1,5 @@
 <?php
+	require_once('../model/Util.php');
 	require_once('../dao/Cliente.dao.php');
 	require_once('../dao/Livro.dao.php');
 	session_start();
@@ -76,7 +77,7 @@
 								<div class="card-body">
 									<h5 class="card-title"><?=filter_var($livro['nome'], FILTER_SANITIZE_STRING)?></h5>
 									<p class=""><?=filter_var($livro['descr'], FILTER_SANITIZE_STRING)?></p>
-									<p class="small mb-0"><i class="fa fa-picture-o mr-2"></i><span class="font-weight-bold">preco</span></p>
+									<p class="small mb-0"><i class="fa fa-picture-o mr-2"></i><span class="font-weight-bold"><?=Util::format_currency($livro['preco'])?></span></p>
 									<div class="d-flex align-items-center justify-content-between rounded-pill bg-light px-3 py-2 mt-4">
 										<a class="btn btn-secondary" href="livro.php?id=<?=$livro['id']?>">Ver</a>
 										<a class="btn btn-primary" href="../controller/Pedido.controller.php?a=addtocart&id=<?=$livro['id']?>">Adicionar ao carrinho</a>
