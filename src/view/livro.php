@@ -67,12 +67,12 @@
 								<p><?=filter_var($livro['estoque'], FILTER_SANITIZE_STRING) > 0 ? "Sim" : "Não"?></p>
 								<br>
 								<h5>Adicionar ao Carrinho</h5>
-								<form method="POST" action="../controller/Pedido.php">
+								<form method="POST" action="../controller/Pedido.controller.php">
 									<!-- necessário para identificar a action no controller -->
 									<input type="hidden" name="a" value="addtocart">
-s									<input type="hidden" name="id" value="<?=$livro['id']?>">
+									<input type="hidden" name="id" value="<?=$livro['id']?>">
 									<label for="qtd">Quantidade:
-										<input type="number" name="qtd" class="form-control">
+										<input type="number" value="1" name="qtd" class="form-control">
 									</label>
 									<label>
 										<!-- TODO CHECK qtd > 0  && qtd < $livro['estoque'] -->

@@ -31,16 +31,29 @@
 
 		<div class="container" style="margin-top: 2rem;">
 			<div class="text-center">
-				<h2>Meu Carrinho</h2>
-				<p class="lead">Veja aqui os produtos que <br>você já separou. </p>
+				<h2>Erro!</h2>
+				<p class="lead">
+					<?php
+					switch ($_GET['msg']){
+						case 'nobookparam':
+							echo 'Página dos livros sem livro!';
+							break;
+						case 'nologin':
+							echo 'Você precisa fazer login para<br> acessar esta área!';
+							break;
+						case 'noparam':
+							echo 'Você tentou acessar uma página sem os parâmetros necessários!';
+							break;
+						default:
+							echo 'Algo deu errado!';
+							break;
+					}
+					?>
+
+				</p>
 			</div>
 		</div>
 
-		<?php
-			//TODO
-			// switch (msg)
-			 	// case nobookparam
-		?>
 
 
 

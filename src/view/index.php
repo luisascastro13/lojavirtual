@@ -1,6 +1,9 @@
 <?php
 	require_once('../dao/Cliente.dao.php');
+	require_once('../dao/Livro.dao.php');
 	session_start();
+
+	$destaques = LivroDAO::selectByStock();
 ?>
 <!doctype html>
 <html lang="pt-BR">
@@ -54,27 +57,36 @@
 		</div>
 		<main class="container">
 			<div class="container-fluid">
-				<h1>DESTAQUES DA SEMANA</h1>
+				<h2>Destaques da Semana</h2>
 				<div class="px-lg-5">
 					<div class="row row-fluid">
-
 					<!-- FAZER UM FOREACH PARA MOSTRAR 8 LIVROS NA VITRINE -->
 
 					<!-- exibir no máximo 8 -->
 
 					<!-- Gallery item -->
-					<div class="col-xl-3 col-lg-4 col-md-6 mb-4">
-					  <div class="bg-white rounded shadow-sm"><img src="$src" alt="" class="img-fluid card-img-top">
-					    <div class="p-4">
-					      <h5> <a href="#" class="text-dark">nome</a></h5>
-					      <p class="small text-muted mb-0">desc</p>
-					      <div class="d-flex align-items-center justify-content-between rounded-pill bg-light px-3 py-2 mt-4">
-					      <p class="small mb-0"><i class="fa fa-picture-o mr-2"></i><span class="font-weight-bold">preco</span></p>
-					        <div class="badge badge-danger px-3 rounded-pill font-weight-normal">Adicionar ao carrinho</div>
-					      </div>
-					    </div>
-					  </div>
-					</div>
+
+					<?php
+						for($i = 0; $i < 8 && $i < count($destaques); ++$i){
+							$livro = $destaques[$i];
+					?>
+						<div class="col-xl-3 col-lg-4 col-md-6 mb-4">
+							<div class="card">
+								<img src="$src" alt="" class="img-fluid card-img-top">
+								<div class="card-body">
+									<h5 class="card-title"><?=filter_var($livro['nome'], FILTER_SANITIZE_STRING)?></h5>
+									<p class=""><?=filter_var($livro['descr'], FILTER_SANITIZE_STRING)?></p>
+									<p class="small mb-0"><i class="fa fa-picture-o mr-2"></i><span class="font-weight-bold">preco</span></p>
+									<div class="d-flex align-items-center justify-content-between rounded-pill bg-light px-3 py-2 mt-4">
+										<a class="btn btn-secondary" href="livro.php?id=<?=$livro['id']?>">Ver</a>
+										<a class="btn btn-primary" href="../controller/Pedido.controller.php?a=addtocart&id=<?=$livro['id']?>">Adicionar ao carrinho</a>
+									</div>
+								</div>
+							</div>
+						</div>
+					<?php
+						}
+					?>
 				</div>
 			</div>
 		</main>

@@ -64,8 +64,12 @@
 				<div class="card" style="max-width:35rem; margin: 0 auto">
 					<div class="card-body">
 						<h5 class="card-title">Cadastre-se!</h5>
-						<form onsubmit="return validarSenhas(this)" action="../controller/Cliente.controller.php?a=inserirNovo" method="POST">
+						<form onsubmit="return validarCadastro(this)" action="../controller/Cliente.controller.php" method="POST">
 							<div class="container">
+								<input type="hidden" name="a" value="inserirNovo">
+								<label for="nome" class="row">Seu nome
+									<input type="text" name="nome" class="form-control">
+								</label>
 								<label for="email" class="row">E-mail
 									<input type="email" name="email" class="form-control">
 								</label>
@@ -88,7 +92,7 @@
 				<div class="card">
 					<div class="card-body">
 						<h5 class="card-title">Ou Faça Login</h5>
-						<form onsubmit="return validarCadastri(this)" action="../controller/Cliente.controller.php?a=efetuarLogin" method="POST">
+						<form  action="../controller/Cliente.controller.php?a=efetuarLogin" method="POST">
 							<div class="container">
 								<label for="email" class="row">E-mail
 									<input type="email" name="email" class="form-control">

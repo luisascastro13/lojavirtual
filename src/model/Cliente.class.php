@@ -1,9 +1,14 @@
 <?php
 	class Cliente {
-		protected $id, $nome, $endereco, $email, $senha;
+		protected $id, $nome, $endereco, $email, $senha, $idCarrinho;
 
-		public function __construct($email){
+		public function __construct($id, $nome, $endereco, $email, $senha, $idCarrinho){
+			$this->id = $id;
+			$this->nome = $nome;
+			$this->endereco = $endereco;
 			$this->email = $email;
+			$this->senha = $senha;
+			$this->idCarrinho = $idCarrinho;
 		}
 
 		public function getId(){
@@ -40,6 +45,14 @@
 
 		public function setSenha($senha){
 			$this->senha = $senha;
+		}
+
+		public function getIdCarrinho(){
+			return $this->idCarrinho;
+		}
+
+		public function setIdCarrinho($id){
+			$this->idCarrinho = $id;
 		}
 	}
 ?>

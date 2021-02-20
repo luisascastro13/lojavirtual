@@ -3,58 +3,69 @@ session_start();
 
 require_once('../model/Cliente.class.php');
 require_once('../dao/Cliente.dao.php');
+error_reporting(E_ALL);
 
-
-switch($_GET['a']){
+// if(array_key_exists('a', $_GET)){
+// 	$reqm = $_GET;
+// } else if(array_key_exists('a', $_POST)){
+$reqm = $_POST;
+// } else {
+// 	header("Location: ../index.php");
+// }
+switch($reqm['a']){
 	case 'inserirNovo':
-		$plaintext_password = $_POST['senha'];
+		echo('Vai inserir novo<br>');
+		$plaintext_password = $reqm['senha'];
 		$hash = password_hash($plaintext_password, PASSWORD_DEFAULT);
 
-		$cliente = new Cliente($_POST['email']);
-		$cliente->setSenha($hash);
-
+		$cliente = new Cliente(-1, $reqm['nome'], NULL, $reqm['email'], $hash, NULL);
 		$idCliente = ClienteDAO::inserir($cliente);
-
 		if($idCliente == 'EXCEPTION'){
-			// echo 'opa opa opa email ja existe no cadastro, tenta outro';
 			header("Location: ../view/login.php?msg=emailDuplicado");
-		}
-		else{
+		} else{
 			$cliente->setId($idCliente);
+			// Loga direto
+			$_SESSION['cliente'] = $cliente->getEmail();
+			$_SESSION['id'] = $cliente->getId();
 			header("Location: ../index.php");
 		}
 		break;
 
 	case 'efetuarLogin':
-
-		$cliente = new Cliente($_POST['email']);
-
-		$plaintext_password = $_POST['senha'];
+		$plaintext_password = $reqm['senha'];
 		$hash = password_hash($plaintext_password, PASSWORD_DEFAULT);
-		$cliente->setSenha($hash);
-
+		// TODO: por que nao fazer isso ser uma consulta sql?
 		$todosClientes = ClienteDAO::verTodos();
 
 		// em todas colunas de email, verifica se existe o email informado.
-		$indice = array_search($_POST['email'], array_column($todosClientes, 'email'));
+		$indice = array_search($reqm['email'], array_column($todosClientes, 'email'));
 
 		if($indice !== false) {
-		    // echo 'Email cadastrado já, pode seguir o baile.';
-	    		if (password_verify($_POST['senha'], $todosClientes[$indice]['senha'])) {
-				    $_SESSION['cliente'] = $todosClientes[$indice]['email'];
-					header('Location: ../view/index.php');
-				    // echo 'tudo certinho';
-				} else {
-					echo 'opa erro na senha';
-				    header('Location: ../view/login.php?msg=senhaIncorreta');
-				}
-		}
-		else{
+    		if (password_verify($reqm['senha'], $todosClientes[$indice]['senha'])) {
+				$_SESSION['cliente'] = $todosClientes[$indice]['email'];
+			    $_SESSION['id'] = $todosClientes[$indice]['id'];
+				header('Location: ../view/index.php');
+			} else {
+				echo 'opa erro na senha';
+			    header('Location: ../view/login.php?msg=senhaIncorreta');
+			}
+		} else{
 			echo 'Email não existe no cadastro, taokei?';
 			// header('Location: ../view/login.php?msg=emailInvalido');
 		}
 		break;
 
+	case 'update':
+		$cliente = new Cliente($reqm['id'], $reqm['nome'], $reqm['endereco'], $reqm['email'], NULL, NULL);
+		ClienteDAO::updateBasico($cliente);
+		// echo 'Pedindo redirect para '
+		header('Location: ' . $reqm['redirect']);
+		break;
+	case 'updatePassword':
+		$cliente = new Cliente($reqm['id'], NULL, NULL, NULL, $hash, NULL);
+		ClienteDAO::updateSenha($cliente);
+		header('Location: ' . $reqm['redirect']);
+		break;
 	case 'logout':
 		unset($_SESSION['cliente']);
 		header('Location: ../view/index.php');
