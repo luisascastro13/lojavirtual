@@ -1,3 +1,6 @@
+<?php
+	require_once('../dao/Categoria.dao.php');
+?>
 <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
 	<div class="container-fluid">
 		<a class="navbar-brand" href="index.php">Livraria Virtual</a>
@@ -14,10 +17,13 @@
 				<li class="nav-item dropdown">
 					<a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-bs-toggle="dropdown" aria-expanded="false">Categorias</a>
 					<ul class="dropdown-menu" aria-labelledby="dropdown01">
-						<!-- SELECT NO NOME DAS CATEGORIAS -->
-						<li><a class="dropdown-item" href="#">Categoriaxxx</a></li>
-						<li><a class="dropdown-item" href="#">Another action</a></li>
-						<li><a class="dropdown-item" href="#">Something else here</a></li>
+						<?php
+							$categorias = CategoriaDAO::verTodos();
+							for($i = 0; $i < count($categorias); ++$i){
+								$formatted = filter_var($categorias[$i]['nome'], FILTER_SANITIZE_STRING);
+								echo '<li><a class="dropdown-item" href="index.php?cat=' . $formatted . '"> ' . $formatted . '</a></li>';
+							}
+						?>
 					</ul>
 				</li>
 				<li class="nav-item">
@@ -32,7 +38,6 @@
 					?>
 						<a class="nav-link dropdown-toggle"  id="dropdownconta" href="#" data-bs-toggle="dropdown" aria-expanded="false">Conta</a>
 						<ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownconta">
-							<!-- SELECT NO NOME DAS CATEGORIAS -->
 							<li><a class="dropdown-item" href="arealogada.php"  >Preferências</a></li>
 							<li><a class="dropdown-item" href="historico.php"  >Pedidos Anteriores</a></li>
 							<li><a class="dropdown-item" href="../controller/Cliente.controller.php?a=logout">Sair</a></li>

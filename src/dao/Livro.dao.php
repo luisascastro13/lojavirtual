@@ -11,6 +11,19 @@ class LivroDAO{
 		$res = $conn->consultarTabela($sql, null);
 		return $res;
 	}
+
+	public static function buscarPorId($id){
+		$conn = new Conexao();
+		$sql = 'select * from livro WHERE id=?';
+		$res = $conn->consultarTabela($sql, [$id]);
+		if(isset($res) && array_key_exists(0, $res) ){
+			return $res[0];
+		} else{
+			return NULL;
+		}
+	}
+
+
 }
 
 ?>

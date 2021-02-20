@@ -29,7 +29,7 @@
 			}
 		</style>
 	</head>
-	<body>
+	<body class="bg-light">
 		<?php include('template/header.php'); ?>
 		<div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
 			<div class="carousel-inner">

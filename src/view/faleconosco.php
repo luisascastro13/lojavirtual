@@ -1,19 +1,19 @@
 <?php
-$caixaDeEntrada = 'luisascastro13@gmail.com';
+	session_start();
 
-if(array_key_exists('mensagem',$_POST)){
-	$mensagem = $_POST['mensagem'];
-	$cliente = $_POST['nome'];
-	$email = $_POST['email'];
+	$caixaDeEntrada = 'luisascastro13@gmail.com';
+	if(array_key_exists('mensagem',$_POST)){
+		$mensagem = $_POST['mensagem'];
+		$cliente = $_POST['nome'];
+		$email = $_POST['email'];
 
-	if(mail($caixaDeEntrada, null, $mensagem, "From: $cliente <$email>" )){
-		 echo 'E-Mail enviado com sucesso!<br>';
+		if(mail($caixaDeEntrada, null, $mensagem, "From: $cliente <$email>" )){
+			 echo 'E-Mail enviado com sucesso!<br>';
+		}
+		else {
+		    echo 'Erro no envio do e-mail.<br>';
+		}
 	}
-	else {
-	    echo 'Erro no envio do e-mail.<br>';
-	}
-}
-
 ?>
 
 <html lang="pt-BR">
@@ -46,7 +46,7 @@ if(array_key_exists('mensagem',$_POST)){
 
 		</style>
 	</head>
-	<body>
+	<body class="bg-light">
 		<?php include('template/header.php'); ?>
 		<div class="container" style="margin-top: 2rem;">
 			<div class="text-center">

@@ -50,7 +50,7 @@
 			}
 		</style>
 	</head>
-	<body>
+	<body class="bg-light">
 		<?php include('template/header.php'); ?>
 		<div class="container" style="margin-top: 2rem;">
 			<div class="text-center">
