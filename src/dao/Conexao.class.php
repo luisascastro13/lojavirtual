@@ -27,7 +27,7 @@ class Conexao extends PDO {
 			echo $e->getMessage();
 			print_r($e->getTrace());
 			$this->rollback();
-			return 'EXCEPTION';// caso a gente queira dar print
+			return 'EXCEPTION';// caso a gente queira dar print; não queremos que fique em branco.
 		}
 	}
 
@@ -45,7 +45,7 @@ class Conexao extends PDO {
 			echo $e->getMessage();
 			print_r($e->getTrace());
 			$this->rollback();
-			return 'EXCEPTION'; // caso a gente queira dar print
+			return 'EXCEPTION'; // caso a gente queira dar print; não queremos que fique em branco.
 		}
 	}
 }

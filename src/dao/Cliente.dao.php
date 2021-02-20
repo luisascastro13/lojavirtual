@@ -1,7 +1,7 @@
 <?php
 
-require_once 'Conexao.class.php';
-require_once '../model/Cliente.class.php';
+require_once('Conexao.class.php');
+require_once('../model/Cliente.class.php');
 
 class ClienteDAO{
 
