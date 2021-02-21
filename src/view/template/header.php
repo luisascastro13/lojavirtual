@@ -8,8 +8,8 @@
 			<span class="navbar-toggler-icon"></span>
 		</button>
 		<div class="collapse navbar-collapse" id="navbarsExampleDefault">
-			<form class="d-flex" style="flex-grow:1; margin: 0">
-				<input class="form-control me-2" type="search" placeholder="Buscar Livros" aria-label="Search">
+			<form class="d-flex" method="GET" action="pesquisa.php" style="flex-grow:1; margin: 0">
+				<input class="form-control me-2" name="texto" type="text" placeholder="Buscar Livros" aria-label="Search">
 				<button class="btn btn-outline-success" type="submit">Buscar</button>
 			</form>
 			<div style="flex-grow:1" ></div>
