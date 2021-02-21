@@ -18,7 +18,6 @@
 	// E depois ainda tem que filtrar o texto, de $resultadoCategorias para $resultado
 	for($i = 0; $i < count($categorias); ++$i){
 		if(array_key_exists('cat' . "$i", $_GET)){
-			echo '$filtraCategorias  era pra ser true';
 			$filtraCategorias = true;
 			for($j = 0; $j < count($livros); ++$j){
 				// Se o livro j possui o id da categoria i como true.
@@ -30,7 +29,6 @@
 		}
 	}
 	if(! $filtraCategorias){
-		echo 'nao filtra cateogiras';
 		$resultadoCategorias = $livros;
 	}
 
