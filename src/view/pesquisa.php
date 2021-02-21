@@ -9,6 +9,7 @@
 	$categorias = CategoriaDAO::verTodos();
 	$filtraCategorias = false;
 	$resultadoCategorias = [];
+	$resultado = [];
 
 	// Decisão arbitrária: pode mudar se quiser:
 		// Se ele não escolheu nenhuma categoria, não filtraremos por nenhuma;

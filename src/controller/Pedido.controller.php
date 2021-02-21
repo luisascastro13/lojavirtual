@@ -26,7 +26,6 @@ if(array_key_exists('qtd', $reqm)){
 	$qtd = 1;
 }
 
-$precoun = LivroDAO::buscarPorId($reqm['id'])['preco'];
 
 switch($reqm['a']){
 	case 'addtocart':
@@ -35,6 +34,9 @@ switch($reqm['a']){
 			$novo_pedido->setId(PedidoDAO::inserir($novo_pedido));
 			$_SESSION['pedido'] = $novo_pedido->getId();
 		}
+
+		$precoun = LivroDAO::buscarPorId($reqm['id'])['preco'];
+
 		PedidoDAO::addLivro($_SESSION['pedido'], $reqm['id'], $qtd, $precoun);
 		header('Location: ../view/pedido.php');
 	break;
@@ -42,6 +44,28 @@ switch($reqm['a']){
 	case 'removeitem':
 		PedidoDAO::removeLivro($_GET['id_pedido'], $_GET['id_livro']);
 		header('Location: ../view/pedido.php');
+		break;
+
+	case 'finalizarpedido':
+		echo 'finalizando...';
+
+
+
+		//enviar email pro usuario com recibo
+		$mensagem = $_POST['mensagem'];			
+		$email = 'luisascastro13@gmail.com';
+		$emailDoCliente = $_SESSION[''];
+
+		if(mail($emailDoCliente, null, $mensagem, "From: Livraria Virtual <$email>" )){
+			 echo 'E-Mail enviado com sucesso!<br>';
+		}
+		else {
+		    echo 'Erro no envio do e-mail.<br>';
+		}
+
+		//limpar o session do carrinho
+
+
 		break;
 
 	default:

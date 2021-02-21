@@ -125,10 +125,13 @@
 							<?php
 								} // end do for ($i )
 								if($pedido->getEstado() == 0){ ?>
-									<form class="card p-2">
+									<form class="card p-2" method='post' action="../controller/Pedido.controller.php?a=finalizarpedido&id_pedido=<?=$pedido->getId()?>">
+										<span>PREÇO TOTAL</span>
 										<input type="submit" class="btn btn-primary" value="Finalizar Compra!">
 									</form>
+									<form>CONTINUAR COMPRANDO</form>
 							<?php } ?>
+
 					</div>
 				</div>
 			<?php } ?>
