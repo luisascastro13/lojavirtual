@@ -38,6 +38,12 @@ switch($reqm['a']){
 		PedidoDAO::addLivro($_SESSION['pedido'], $reqm['id'], $qtd, $precoun);
 		header('Location: ../view/pedido.php');
 	break;
+
+	case 'removeitem':
+		PedidoDAO::removeLivro($_GET['id_pedido'], $_GET['id_livro']);
+		header('Location: ../view/pedido.php');
+		break;
+
 	default:
 		echo 'action inválido: ' . $reqm['a'];
 }

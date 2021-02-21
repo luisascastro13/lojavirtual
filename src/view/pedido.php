@@ -114,7 +114,7 @@
 										<span class="text-muted " style="align-self:center">
 											<?=Util::format_currency($livros[$i]['preco_un'] * $livros[$i]['qtd'])?>
 											<?php if($pedido->getEstado() == 0){ ?>
-												<form action="../controller/Pedido.controller.php" method="POST">
+												<form action="../controller/Pedido.controller.php?a=removeitem&id_pedido=<?=$livros[$i]['id_pedido']?>&id_livro=<?=$livros[$i]['id_livro']?>" method="POST">
 													<input type="submit" class="form-control btn  btn-outline-danger btn-sm" value="X">
 												</form>
 												<!-- <a href="../controller/Pedido.controller.php?a=removeitem&id_pedido=<?=$livros[$i]['id_pedido']?>&id_livro=<?=$livros[$i]['id_livro']?>" class="btn badge bg-danger rounded-pill no-border text-sm-center">X</a> -->

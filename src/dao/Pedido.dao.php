@@ -70,6 +70,12 @@ class PedidoDAO{
 		$sql = 'insert into pedidolivro(id_pedido, id_livro, qtd, preco_un) VALUES (?,?,?,?)';
 		$conn->atualizarTabela($sql, [$idPedido, $idLivro, $qtd, $precoun]);
 	}
+
+	public static function removeLivro($idPedido, $idLivro){
+		$conn = new Conexao();
+		$sql = "delete from pedidolivro where id_pedido = ? and id_livro = ?";
+		$conn->atualizarTabela($sql, [$idPedido, $idLivro]);
+	}
 }
 
 ?>
