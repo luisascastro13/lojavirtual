@@ -15,6 +15,13 @@ class LivroDAO{
 		return $res;
 	}
 
+	public static function buscarLivrosPorCategoria($idCategoria){
+		$conn = new Conexao();
+		$sql = 'SELECT * FROM livrocategoria where id_categoria = ?';
+		$res = $conn->consultarTabela($sql, [$idCategoria]);
+		return $res;
+	}
+
 	public static function selectByStock(){
 		$conn = new Conexao();
 		$sql = 'select * from livro order by estoque desc';

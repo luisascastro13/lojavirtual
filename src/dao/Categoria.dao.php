@@ -15,5 +15,11 @@
 			$res = $conn->consultarTabela($sql, null);
 			return $res;
 		}
+		public static function buscarPorNome($nome){
+			$conn = new Conexao();
+			$sql = "select id from categoria where nome = ?";
+			$res = $conn->consultarTabela($sql, [$nome]);
+			return $res;
+		}
 	}
 ?>
