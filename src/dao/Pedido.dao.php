@@ -7,15 +7,24 @@ class PedidoDAO{
 
 	public static function buscarPorId($id){
 		$conn = new Conexao();
-		$sql = 'select * from pedido';
-		$res = $conn->consultarTabela($sql, null);
-		// Converte este item do resultado para um objeto Pedido
-		$p = new Pedido($res[0]['id'], $res[0]['id_cliente'], $res[0]['estado']);
-		$p->setLivros(PedidoDao::getPedidoLivroForPedido($conn, $p->getId()));
-		// adiciona no fim da lista de pedidos.
-		return $p;
+		$sql = 'select * from pedido WHERE id = ?';
+		$res = $conn->consultarTabela($sql, [$id]);
+		// Pode ser que não haja um pedido com este id.
+		if(array_key_exists(0, $res)){
+			// Converte este item do resultado para um objeto Pedido
+			$p = new Pedido($id, $res[0]['id_cliente'], $res[0]['estado']);
+			$p->setLivros(PedidoDao::getPedidoLivroForPedido($conn, $res[0]['id']));
+			return $p;
+		} else {
+			return NULL;
+		}
 	}
 
+	public static function alterarEstado($id, $novoEstado){
+		$conn = new Conexao();
+		$sql = 'update pedido set estado=? WHERE id = ?';
+		return $conn->atualizarTabela($sql, [$novoEstado, $id]);
+	}
 
 	public static function inserir($pedido){
 		$conn = new Conexao();
@@ -49,6 +58,12 @@ class PedidoDAO{
 	private static function getPedidoLivroForPedido($conn, $idPedido){
 		$sql = 'select * from pedidolivro where id_pedido = ?';
 		return  $conn->consultarTabela($sql, [$idPedido]);
+	}
+
+	public static function addLivro($idPedido, $idLivro, $qtd, $precoun){
+		$conn = new Conexao();
+		$sql = 'insert into pedidolivro(id_pedido, id_livro, qtd, preco_un) VALUES (?,?,?,?)';
+		$conn->atualizarTabela($sql, [$idPedido, $idLivro, $qtd, $precoun]);
 	}
 
 	private static function insertPedidoLivro($conn, $idPedido, $idLivro, $qtd, $precoun){

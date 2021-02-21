@@ -14,10 +14,10 @@
 
 	if(array_key_exists('id', $_GET)){
 		// Se for uma consulta, puxando por um id específico
-		$pedido = PedidoDAO::getPedido($_GET['id']);
+		$pedido = PedidoDAO::buscarPorId($_GET['id']);
 	} else if(array_key_exists('id', $_POST)){
 		// Se for uma consulta, puxando por um id específico
-		$pedido = PedidoDAO::getPedido($_POST['id']);
+		$pedido = PedidoDAO::buscarPorId($_POST['id']);
 	} else {
 		// Se for para ver o carrinho atual,
 		if(array_key_exists('pedido', $_SESSION)){
@@ -35,8 +35,6 @@
 		$idCliente = array_key_exists('id', $_SESSION) ? $_SESSION['id'] : NULL;
 		$pedido = new Pedido(NULL, $idCliente, 0);
 		$idPedido = PedidoDAO::inserir($pedido);
-		$pedido->setId($idPedido);
-		echo 'setando id;<br>';
 		$_SESSION['pedido'] = $idPedido;
 		// Se estiver logado, vai ser este o carrinho
 		if($_SESSION['id'] != NULL){
@@ -47,8 +45,6 @@
 		// Se não estiver logado, quando ele logar, vai ter que decidir se vai substituir o carrinho pelo que já tem.
 		// se esse aqui tiver mais que um item, ou se o outro estiver null ainda, vai substituir.  senao nao
 	}
-
-
 	$livros = $pedido->getLivros();
 ?>
 
@@ -87,53 +83,55 @@
 		<main>
 			<div class="container" style="margin-top: 2rem;">
 				<div class="text-center">
-					<h2>Meu Carrinho (id: <?=$pedido->getId()?>)</h2>
-					<p class="lead">Veja aqui os produtos que <br>você já separou. </p>
-				</div>
-			</div>
-			<div class="row g-3 justify-content-center">
-				<div class="col-md-5 col-lg-4 order-md-last">
-				<h4 class="d-flex justify-content-between align-items-center mb-3">
-					Carrinho
-					<span class="badge bg-secondary rounded-pill"><?=count($livros)?></span>
-				</h4>
-
-				<ul class="list-group mb-3">
+					<h2><?=$pedido->getEstado() == 0 ? "Meu Carrinho" : "Pedido Anterior"?></h2>
 					<?php
-						for($i = 0; $i < count($livros); ++$i){
-							$livro = LivroDAO::buscarPorId($livros[$i]['id_livro']);
-					?>
-						<li class="list-group-item d-flex justify-content-between lh-sm">
-							<div>
-								<h6 class="my-0"><?=($livro['nome'])?></h6>
-								<!-- <?php print_r($livros[$i])?> -->
-								<small class="text-muted">Quantidade: <?=$livros[$i]['qtd']?>; Preço: <?=Util::format_currency($livros[$i]['preco_un'])?>.</small>
-							</div>
-							<span class="text-muted " style="align-self:center">
-								<?=Util::format_currency($livros[$i]['preco_un'] * $livros[$i]['qtd'])?>
-								<?php if($pedido->getEstado() == 0){ ?>
-									<form action="../controller/Pedido.controller.php" method="POST">
-										<input type="submit" class="form-control btn  btn-outline-danger btn-sm" value="X">
-									</form>
-									<!-- <a href="../controller/Pedido.controller.php?a=removeitem&id_pedido=<?=$livros[$i]['id_pedido']?>&id_livro=<?=$livros[$i]['id_livro']?>" class="btn badge bg-danger rounded-pill no-border text-sm-center">X</a> -->
-								<?php } ?>
-							</span>
-						</li>
-					<?php
+						if(count($pedido->getLivros()) == 0){
+							echo '<p class="lead">Adicione primeiro algum<br> produto ao seu carrinho!</p>';
+						} else {
+							echo '<p class="lead">Veja aqui os produtos que <br>você já separou.</p>';
 						}
-
 					?>
-					<?php if($pedido->getEstado() == 0){ ?>
-						<form class="card p-2">
-							<input type="submit" class="btn btn-primary" value="Finalizar Compra!">
-							<!-- <div class="input-group"> -->
-							<!-- <input type="text" class="form-control" placeholder="Promo code">
-							<button type="submit" class="btn btn-secondary">Redeem</button> -->
-							<!-- </div> -->
-						</form>
-					<?php } ?>
 				</div>
 			</div>
+			<?php if(count($pedido->getLivros()) > 0){ ?>
+				<div class="row g-3 justify-content-center">
+					<div class="col-md-5 col-lg-4 order-md-last">
+					<h4 class="d-flex justify-content-between align-items-center mb-3">
+						Carrinho
+						<span class="badge bg-secondary rounded-pill"><?=count($livros)?></span>
+					</h4>
+							<ul class="list-group mb-3">
+							<?php
+								for($i = 0; $i < count($livros); ++$i){
+									$livro = LivroDAO::buscarPorId($livros[$i]['id_livro']);
+							?>
+									<li class="list-group-item d-flex justify-content-between lh-sm">
+										<div>
+											<h6 class="my-0"><?=($livro['nome'])?></h6>
+											<!-- <?php print_r($livros[$i])?> -->
+											<small class="text-muted">Quantidade: <?=$livros[$i]['qtd']?>; Preço: <?=Util::format_currency($livros[$i]['preco_un'])?>.</small>
+										</div>
+										<span class="text-muted " style="align-self:center">
+											<?=Util::format_currency($livros[$i]['preco_un'] * $livros[$i]['qtd'])?>
+											<?php if($pedido->getEstado() == 0){ ?>
+												<form action="../controller/Pedido.controller.php" method="POST">
+													<input type="submit" class="form-control btn  btn-outline-danger btn-sm" value="X">
+												</form>
+												<!-- <a href="../controller/Pedido.controller.php?a=removeitem&id_pedido=<?=$livros[$i]['id_pedido']?>&id_livro=<?=$livros[$i]['id_livro']?>" class="btn badge bg-danger rounded-pill no-border text-sm-center">X</a> -->
+											<?php } ?>
+										</span>
+									</li>
+
+							<?php
+								} // end do for ($i )
+								if($pedido->getEstado() == 0){ ?>
+									<form class="card p-2">
+										<input type="submit" class="btn btn-primary" value="Finalizar Compra!">
+									</form>
+							<?php } ?>
+					</div>
+				</div>
+			<?php } ?>
 		</main>
 
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
