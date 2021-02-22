@@ -114,11 +114,15 @@
 											<!-- <?php print_r($livros[$i])?> -->
 											<small class="text-muted">Quantidade: <?=$livros[$i]['qtd']?>; Preço: <?=Util::format_currency($livros[$i]['preco_un'])?>.</small>
 										</div>
-										<span>Alterar quantidade
 
-											<input type="number" value="1" name="qtd" class="form-control">
-
-										</span>
+										<form action='../controller/Pedido.controller.php?a=alterarquantidade' method='post'>Alterar quantidade
+											
+											<!-- settar o valor conforme o q diz na tabela livro pedido no campo qtd -->
+										
+											<input type="number" value="<?=$livros[$i]['qtd']?>" name="qtd" class="form-control">
+											<input type="submit" class="" value="Salvar nova quantidade">
+											
+										</form>		
 										<span class="text-muted " style="align-self:center">
 											<?=Util::format_currency($livros[$i]['preco_un'] * $livros[$i]['qtd'])?>
 											<?php $total += $livros[$i]['preco_un'] * $livros[$i]['qtd'];

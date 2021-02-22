@@ -71,6 +71,10 @@ switch($reqm['a']){
 		header('Location: ../view/index.php');
 		break;
 
+	case 'alterarquantidade':
+
+		
+
 	default:
 		echo 'action inválido: ' . $reqm['a'];
 }

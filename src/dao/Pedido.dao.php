@@ -20,6 +20,12 @@ class PedidoDAO{
 		}
 	}
 
+	public static function alterarQuantidade($idLivro, $idPedido){
+		$conn = new Conexao();
+		$sql = "UPDATE qtd from pedidolivro where id_livro ? and id_pedido = ?";
+		$conn->atualizarTabela($sql, [$idLivro, $idPedido]);
+	}
+
 	public static function alterarEstado($id, $novoEstado){
 		$conn = new Conexao();
 		$sql = 'update pedido set estado=? WHERE id = ?';
