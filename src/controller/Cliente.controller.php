@@ -8,10 +8,13 @@ error_reporting(E_ALL);
 // if(array_key_exists('a', $_GET)){
 // 	$reqm = $_GET;
 // } else if(array_key_exists('a', $_POST)){
-$reqm = $_POST;
+
 // } else {
 // 	header("Location: ../index.php");
 // }
+
+$reqm = $_POST;
+
 switch($reqm['a']){
 	case 'inserirNovo':
 		echo('Vai inserir novo<br>');
@@ -66,11 +69,18 @@ switch($reqm['a']){
 		ClienteDAO::updateSenha($cliente);
 		header('Location: ' . $reqm['redirect']);
 		break;
-	case 'logout':
-		unset($_SESSION['cliente']);
-		header('Location: ../view/index.php');
-		break;
+	
 }
+
+if(isset($_GET['sair'])){
+	switch($_GET['sair']){
+		case 'sim':
+			unset($_SESSION['cliente']);
+			header('Location: ../view/index.php');
+			break;
+	}
+}
+
 
 // header('Location: ../view/login.php');
 ?>

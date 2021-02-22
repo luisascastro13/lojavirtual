@@ -10,6 +10,7 @@
 	require_once('../model/Util.php');
 
 
+
 	$pedido = NULL;
 
 	if(array_key_exists('id', $_GET)){
@@ -26,7 +27,7 @@
 			$cliente = ClienteDAO::buscarPorId($_SESSION['id']);
 			$id = $cliente->getIdCarrinho();
 			if($id != NULL && $id > 0){
-				$pedido = PedidoDAO::getPedido($id);
+				$pedido = PedidoDAO::buscarPorId($id);
 			}
 		}
 	}
@@ -100,7 +101,9 @@
 						Carrinho
 						<span class="badge bg-secondary rounded-pill"><?=count($livros)?></span>
 					</h4>
-							<ul class="list-group mb-3">
+							<ul clsass="list-group mb-3">
+
+
 							<?php
 								for($i = 0; $i < count($livros); ++$i){
 									$livro = LivroDAO::buscarPorId($livros[$i]['id_livro']);
@@ -111,9 +114,11 @@
 											<!-- <?php print_r($livros[$i])?> -->
 											<small class="text-muted">Quantidade: <?=$livros[$i]['qtd']?>; Preço: <?=Util::format_currency($livros[$i]['preco_un'])?>.</small>
 										</div>
+										<span>Alterar quantidade</span>
 										<span class="text-muted " style="align-self:center">
 											<?=Util::format_currency($livros[$i]['preco_un'] * $livros[$i]['qtd'])?>
 											<?php if($pedido->getEstado() == 0){ ?>
+
 												<form action="../controller/Pedido.controller.php?a=removeitem&id_pedido=<?=$livros[$i]['id_pedido']?>&id_livro=<?=$livros[$i]['id_livro']?>" method="POST">
 													<input type="submit" class="form-control btn  btn-outline-danger btn-sm" value="X">
 												</form>
@@ -129,7 +134,9 @@
 										<span>PREÇO TOTAL</span>
 										<input type="submit" class="btn btn-primary" value="Finalizar Compra!">
 									</form>
-									<form>CONTINUAR COMPRANDO</form>
+									<form class="card p-2" method='post' action="../view/index.php">										
+										<input type="submit" class="btn btn-secondary" value="Continuar comprando.">
+									</form>
 							<?php } ?>
 
 					</div>

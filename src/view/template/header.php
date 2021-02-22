@@ -4,6 +4,7 @@
 <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
 	<div class="container-fluid">
 		<a class="navbar-brand" href="index.php">Livraria Virtual</a>
+		<a class="navbar-brand">Léo e Luísa</a>
 		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>
@@ -40,7 +41,7 @@
 						<ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownconta">
 							<li><a class="dropdown-item" href="arealogada.php"  >Preferências</a></li>
 							<li><a class="dropdown-item" href="historico.php"  >Pedidos Anteriores</a></li>
-							<li><a class="dropdown-item" href="../controller/Cliente.controller.php?a=logout">Sair</a></li>
+							<li><a class="dropdown-item" href="../controller/Cliente.controller.php?sair=sim">Sair</a></li>
 						</ul>
 					<?php
 						} else {

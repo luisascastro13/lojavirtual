@@ -30,7 +30,7 @@ if(array_key_exists('qtd', $reqm)){
 switch($reqm['a']){
 	case 'addtocart':
 		if(!array_key_exists('pedido', $_SESSION)){
-			$novo_pedido = new Pedido(-1, -1, 0);
+			$novo_pedido = new Pedido(null, $idCliente, 0);
 			$novo_pedido->setId(PedidoDAO::inserir($novo_pedido));
 			$_SESSION['pedido'] = $novo_pedido->getId();
 		}
@@ -47,25 +47,28 @@ switch($reqm['a']){
 		break;
 
 	case 'finalizarpedido':
-		echo 'finalizando...';
-
-
 
 		//enviar email pro usuario com recibo
-		$mensagem = $_POST['mensagem'];			
+		$mensagem = PedidoDAO::buscarReciboPedido($_GET['id_pedido']);		
 		$email = 'luisascastro13@gmail.com';
-		$emailDoCliente = $_SESSION[''];
+		$emailDoCliente = $_SESSION['cliente'];
 
 		if(mail($emailDoCliente, null, $mensagem, "From: Livraria Virtual <$email>" )){
-			 echo 'E-Mail enviado com sucesso!<br>';
+			// echo 'E-Mail enviado com sucesso!<br>';
 		}
 		else {
-		    echo 'Erro no envio do e-mail.<br>';
+		    // echo 'Erro no envio do e-mail.<br>';
 		}
+		PedidoDAO::alterarEstado($_GET['id_pedido'], '1');	
 
 		//limpar o session do carrinho
-
-
+		unset($_SESSION['pedido']);
+		
+		$novo_pedido = new Pedido(null, $idCliente, 0);
+		$novo_pedido->setId(PedidoDAO::inserir($novo_pedido));
+		$_SESSION['pedido'] = $novo_pedido->getId();
+		header('Location: ../view/index.php');
+		header('Location: ../view/index.php');
 		break;
 
 	default:

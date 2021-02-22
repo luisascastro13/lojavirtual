@@ -76,6 +76,14 @@ class PedidoDAO{
 		$sql = "delete from pedidolivro where id_pedido = ? and id_livro = ?";
 		$conn->atualizarTabela($sql, [$idPedido, $idLivro]);
 	}
+	public static function buscarReciboPedido($idPedido){
+		$conn = new Conexao();
+		$sql = "SELECT id_livro, qtd, preco_un, livro.nome from pedidolivro
+				inner join livro on livro.id = pedidolivro.id_livro
+				where id_pedido = ?";
+		$res = $conn->consultarTabela($sql, [$idPedido]);
+		return $res;
+	}
 }
 
 ?>
