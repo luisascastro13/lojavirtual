@@ -49,7 +49,7 @@ switch($reqm['a']){
 	case 'finalizarpedido':
 
 		//enviar email pro usuario com recibo
-		$mensagem = PedidoDAO::buscarReciboPedido($_GET['id_pedido']);		
+		$mensagem = PedidoDAO::buscarReciboPedido($_GET['id_pedido']);
 		$email = 'luisascastro13@gmail.com';
 		$emailDoCliente = $_SESSION['cliente'];
 
@@ -59,22 +59,21 @@ switch($reqm['a']){
 		else {
 		    // echo 'Erro no envio do e-mail.<br>';
 		}
-		PedidoDAO::alterarEstado($_GET['id_pedido'], '1');	
+		PedidoDAO::alterarEstado($_GET['id_pedido'], '1');
 
 		//limpar o session do carrinho
 		unset($_SESSION['pedido']);
-		
+
 		$novo_pedido = new Pedido(null, $idCliente, 0);
 		$novo_pedido->setId(PedidoDAO::inserir($novo_pedido));
 		$_SESSION['pedido'] = $novo_pedido->getId();
 		header('Location: ../view/index.php');
-		header('Location: ../view/index.php');
 		break;
 
 	case 'alterarquantidade':
-
-		
-
+		PedidoDAO::alterarQuantidade($_GET['id_livro'], $_GET['id_pedido'], $_GET['qtd']);
+		header('Location: ../view/pedido.php');
+		break;
 	default:
 		echo 'action inválido: ' . $reqm['a'];
 }

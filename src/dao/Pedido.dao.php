@@ -20,15 +20,16 @@ class PedidoDAO{
 		}
 	}
 
-	public static function alterarQuantidade($idLivro, $idPedido){
+	public static function alterarQuantidade($idLivro, $idPedido, $qtd){
 		$conn = new Conexao();
-		$sql = "UPDATE qtd from pedidolivro where id_livro ? and id_pedido = ?";
-		$conn->atualizarTabela($sql, [$idLivro, $idPedido]);
+		$sql = "UPDATE pedidolivro set qtd=? where id_livro=? and id_pedido=?;";
+		$conn->atualizarTabela($sql, [$qtd, $idLivro, $idPedido]);
+
 	}
 
 	public static function alterarEstado($id, $novoEstado){
 		$conn = new Conexao();
-		$sql = 'update pedido set estado=? WHERE id = ?';
+		$sql = 'update pedido set estado=? WHERE id=?';
 		return $conn->atualizarTabela($sql, [$novoEstado, $id]);
 	}
 
@@ -79,14 +80,14 @@ class PedidoDAO{
 
 	public static function removeLivro($idPedido, $idLivro){
 		$conn = new Conexao();
-		$sql = "delete from pedidolivro where id_pedido = ? and id_livro = ?";
+		$sql = "delete from pedidolivro where id_pedido=? and id_livro=?";
 		$conn->atualizarTabela($sql, [$idPedido, $idLivro]);
 	}
 	public static function buscarReciboPedido($idPedido){
 		$conn = new Conexao();
 		$sql = "SELECT id_livro, qtd, preco_un, livro.nome from pedidolivro
 				inner join livro on livro.id = pedidolivro.id_livro
-				where id_pedido = ?";
+				where id_pedido=?";
 		$res = $conn->consultarTabela($sql, [$idPedido]);
 		return $res;
 	}

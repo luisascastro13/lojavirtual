@@ -96,7 +96,7 @@
 			</div>
 			<?php if(count($pedido->getLivros()) > 0){ ?>
 				<div class="row g-3 justify-content-center">
-					<div class="col-md-5 col-lg-4 order-md-last">
+					<div class="col-md-6 col-lg-6 order-md-last">
 					<h4 class="d-flex justify-content-between align-items-center mb-3">
 						Carrinho
 						<span class="badge bg-secondary rounded-pill"><?=count($livros)?></span>
@@ -111,29 +111,34 @@
 									<li class="list-group-item d-flex justify-content-between lh-sm">
 										<div>
 											<h6 class="my-0"><?=($livro['nome'])?></h6>
-											<!-- <?php print_r($livros[$i])?> -->
 											<small class="text-muted">Quantidade: <?=$livros[$i]['qtd']?>; Preço: <?=Util::format_currency($livros[$i]['preco_un'])?>.</small>
 										</div>
 
-										<form action='../controller/Pedido.controller.php?a=alterarquantidade' method='post'>Alterar quantidade
-											
-											<!-- settar o valor conforme o q diz na tabela livro pedido no campo qtd -->
-										
-											<input type="number" value="<?=$livros[$i]['qtd']?>" name="qtd" class="form-control">
-											<input type="submit" class="" value="Salvar nova quantidade">
-											
-										</form>		
 										<span class="text-muted " style="align-self:center">
 											<?=Util::format_currency($livros[$i]['preco_un'] * $livros[$i]['qtd'])?>
-											<?php $total += $livros[$i]['preco_un'] * $livros[$i]['qtd'];
-											if($pedido->getEstado() == 0){ ?>
-
-												<form action="../controller/Pedido.controller.php?a=removeitem&id_pedido=<?=$livros[$i]['id_pedido']?>&id_livro=<?=$livros[$i]['id_livro']?>" method="POST">
-													<input type="submit" class="form-control btn  btn-outline-danger btn-sm" value="X">
-												</form>
-												<!-- <a href="../controller/Pedido.controller.php?a=removeitem&id_pedido=<?=$livros[$i]['id_pedido']?>&id_livro=<?=$livros[$i]['id_livro']?>" class="btn badge bg-danger rounded-pill no-border text-sm-center">X</a> -->
+											<?php
+												$total += $livros[$i]['preco_un'] * $livros[$i]['qtd'];
+												if($pedido->getEstado() == 0){ ?>
+													<form action="../controller/Pedido.controller.php" method="GET">
+														<input type="hidden" name="a" value="removeitem">
+														<input type="hidden" name="id_pedido" value="<?=$livros[$i]['id_pedido']?>">
+														<input type="hidden" name="id_livro" value="<?=$livros[$i]['id_livro']?>">
+														<input type="submit" class="form-control btn  btn-outline-danger btn-sm" value="X">
+													</form>
+													<!-- <a href="../controller/Pedido.controller.php?a=removeitem&id_pedido=<?=$livros[$i]['id_pedido']?>&id_livro=<?=$livros[$i]['id_livro']?>" class="btn badge bg-danger rounded-pill no-border text-sm-center">X</a> -->
 											<?php } ?>
 										</span>
+
+										<?php
+											if($pedido->getEstado() == 0){ ?>
+												<form action="../controller/Pedido.controller.php" method="GET"> Alterar quantidade
+													<input type="hidden" name="a" value="alterarquantidade">
+													<input type="hidden" name="id_pedido" value="<?=$livros[$i]['id_pedido']?>">
+													<input type="hidden" name="id_livro" value="<?=$livros[$i]['id_livro']?>">
+													<input type="number" value="<?=$livros[$i]['qtd']?>" name="qtd" class="form-control">
+													<input type="submit" class="" value="Atualizar quantidade">
+												</form>
+										<?php } ?>
 									</li>
 
 							<?php
@@ -147,7 +152,7 @@
 										</span>
 										<input type="submit" class="btn btn-primary" value="Finalizar Compra!">
 									</form>
-									<form class="card p-2" method='post' action="../view/index.php">										
+									<form class="card p-2" method='post' action="../view/index.php">
 										<input type="submit" class="btn btn-secondary" value="Continuar comprando.">
 									</form>
 							<?php } ?>
