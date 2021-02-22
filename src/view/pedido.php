@@ -10,7 +10,7 @@
 	require_once('../model/Util.php');
 
 
-
+	$total=0;
 	$pedido = NULL;
 
 	if(array_key_exists('id', $_GET)){
@@ -114,10 +114,15 @@
 											<!-- <?php print_r($livros[$i])?> -->
 											<small class="text-muted">Quantidade: <?=$livros[$i]['qtd']?>; Preço: <?=Util::format_currency($livros[$i]['preco_un'])?>.</small>
 										</div>
-										<span>Alterar quantidade</span>
+										<span>Alterar quantidade
+
+											<input type="number" value="1" name="qtd" class="form-control">
+
+										</span>
 										<span class="text-muted " style="align-self:center">
 											<?=Util::format_currency($livros[$i]['preco_un'] * $livros[$i]['qtd'])?>
-											<?php if($pedido->getEstado() == 0){ ?>
+											<?php $total += $livros[$i]['preco_un'] * $livros[$i]['qtd'];
+											if($pedido->getEstado() == 0){ ?>
 
 												<form action="../controller/Pedido.controller.php?a=removeitem&id_pedido=<?=$livros[$i]['id_pedido']?>&id_livro=<?=$livros[$i]['id_livro']?>" method="POST">
 													<input type="submit" class="form-control btn  btn-outline-danger btn-sm" value="X">
@@ -131,7 +136,11 @@
 								} // end do for ($i )
 								if($pedido->getEstado() == 0){ ?>
 									<form class="card p-2" method='post' action="../controller/Pedido.controller.php?a=finalizarpedido&id_pedido=<?=$pedido->getId()?>">
-										<span>PREÇO TOTAL</span>
+										<span>PREÇO TOTAL
+
+										<?=Util::format_currency($total)?>
+
+										</span>
 										<input type="submit" class="btn btn-primary" value="Finalizar Compra!">
 									</form>
 									<form class="card p-2" method='post' action="../view/index.php">										

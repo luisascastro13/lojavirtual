@@ -69,9 +69,9 @@
 							<input type="email" class="form-control" name="email" value="<?=filter_var($cliente->getEmail(),FILTER_SANITIZE_STRING)?>" required>
 						</label>
 
-						<label for="endereco" class="row">Endereço
+						<!-- <label for="endereco" class="row">Endereço
 							<input type="text" class="form-control" name="endereco" value="<?=filter_var($cliente->getEndereco(),FILTER_SANITIZE_STRING)?>" required>
-						</label>
+						</label> -->
 
 						<input type="submit" class="row btn btn-primary" value="Atualizar">
 					</div>

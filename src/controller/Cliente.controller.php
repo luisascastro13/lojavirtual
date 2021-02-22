@@ -59,7 +59,7 @@ switch($reqm['a']){
 		break;
 
 	case 'update':
-		$cliente = new Cliente($reqm['id'], $reqm['nome'], $reqm['endereco'], $reqm['email'], NULL, NULL);
+		$cliente = new Cliente($reqm['id'], $reqm['nome'], null, $reqm['email'], NULL, NULL);
 		ClienteDAO::updateBasico($cliente);
 		// echo 'Pedindo redirect para '
 		header('Location: ' . $reqm['redirect']);
