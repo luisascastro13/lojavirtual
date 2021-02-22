@@ -40,7 +40,7 @@
 						<a class="nav-link dropdown-toggle"  id="dropdownconta" href="#" data-bs-toggle="dropdown" aria-expanded="false">Conta</a>
 						<ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownconta">
 							<li><a class="dropdown-item" href="arealogada.php"  >Preferências</a></li>
-							<li><a class="dropdown-item" href="historico.php"  >Pedidos Anteriores</a></li>
+							<!-- trabalhos futuros! <li><a class="dropdown-item" href="historico.php"  >Pedidos Anteriores</a></li> -->
 							<li><a class="dropdown-item" href="../controller/Cliente.controller.php?sair=sim">Sair</a></li>
 						</ul>
 					<?php
